@@ -30,7 +30,9 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'version_control.apps.VersionControlConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,6 +126,11 @@ ALLOWED_HOSTS = ['*']
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL='/media/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = 'version_control_home'
+LOGIN_URL='login'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [
