@@ -23,3 +23,7 @@ blocks:
             - pipenv install
             - cache store
             - pipenv run pytest
+
+promotions:
+  - name: Deploy to Docker Hub and Heroku
+    pipeline_file: deploy-docker-hub-heroku.yml

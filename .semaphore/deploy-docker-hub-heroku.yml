@@ -1,0 +1,39 @@
+version: v1.0
+name: Deploy to Docker Hub and Heroku
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deploy
+    task:
+      prologue:
+        commands:
+          - sem-version node 12
+          - sem-version python 3.8
+      secrets:
+        - name: uks
+      env_vars:
+        - name: HEROKU_APP_NAME
+          value: uks-tim-10
+      jobs:
+        - name: Build and deploy
+          commands:
+            - checkout
+            - cp ~/configs/.env ~/UKS/.env
+            - cache restore
+            - pip install pipenv
+            - pipenv install
+            - docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}
+            - docker build -t ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} .
+            - docker tag ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} ${DOCKER_HUB_USERNAME}/${HEROKU_APP_NAME}:${DOCKER_HUB_TAG}
+            - docker push ${DOCKER_HUB_USERNAME}/${HEROKU_APP_NAME}:${DOCKER_HUB_TAG}
+            - docker pull ${DOCKER_HUB_USERNAME}/${HEROKU_APP_NAME}:${DOCKER_HUB_TAG}
+            - ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts
+            - chmod 600 ~/.ssh/id_rsa_semaphore_heroku
+            - ssh-add ~/.ssh/id_rsa_semaphore_heroku
+            - heroku auth:token
+            - heroku container:login
+            - docker tag ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} registry.heroku.com/${HEROKU_APP_NAME}/web
+            - heroku container:push web -a ${HEROKU_APP_NAME}
+            - heroku container:release web -a ${HEROKU_APP_NAME}
