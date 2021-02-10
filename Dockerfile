@@ -1,9 +1,7 @@
 FROM python:3.8.3-alpine
 
-# set work directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -22,9 +20,8 @@ RUN pipenv install
 RUN apk del build-deps
 RUN apk --no-cache add musl-dev linux-headers g++
 
-# copy project
-COPY . .
+COPY . ./
 
-CMD pipenv run python manage.py makemigrations \
-    && pipenv run python manage.py migrate \
-    && pipenv run gunicorn uks.wsgi:application \
+RUN pipenv run python manage.py collectstatic --noinput
+
+CMD ./start.sh
