@@ -20,6 +20,7 @@ COPY ./Pipfile.lock .
 
 RUN pipenv install
 RUN apk del build-deps
+RUN apk --no-cache add musl-dev linux-headers g++
 
 # copy project
 COPY . .
