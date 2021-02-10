@@ -24,3 +24,7 @@ RUN apk --no-cache add musl-dev linux-headers g++
 
 # copy project
 COPY . .
+
+CMD pipenv run python manage.py makemigrations \
+    && pipenv run python manage.py migrate \
+    && pipenv run gunicorn uks.wsgi:application \
