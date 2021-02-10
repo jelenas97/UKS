@@ -1,6 +1,6 @@
 FROM python:3.8.3-alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -20,8 +20,8 @@ RUN pipenv install
 RUN apk del build-deps
 RUN apk --no-cache add musl-dev linux-headers g++
 
-COPY . ./
+COPY . .
 
 RUN pipenv run python manage.py collectstatic --noinput
 
-CMD ./start.sh
+CMD pipenv run python manage.py migrate
