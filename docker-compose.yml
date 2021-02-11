@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: ./
-      dockerfile: Dockerfile.web
+      dockerfile: Dockerfile-local
     command: sh -c "pipenv run python manage.py makemigrations &&
                     pipenv run python manage.py migrate &&
                     pipenv run gunicorn uks.wsgi:application --bind 0.0.0.0:${PORT}"

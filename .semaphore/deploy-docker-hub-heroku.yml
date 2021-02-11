@@ -20,12 +20,13 @@ blocks:
         - name: Build and deploy
           commands:
             - checkout
-            - cp ~/configs/.env ~/UKS/.env
+            - cp ~/configs/.env .
+            - ls -a
             - cache restore
             - pip install pipenv
             - pipenv install
             - docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}
-            - docker build -f Dockerfile.release -t ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} .
+            - docker build -t ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} .
             - docker tag ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} ${DOCKER_HUB_USERNAME}/${HEROKU_APP_NAME}:${DOCKER_HUB_TAG}
             - docker push ${DOCKER_HUB_USERNAME}/${HEROKU_APP_NAME}:${DOCKER_HUB_TAG}
             - docker pull ${DOCKER_HUB_USERNAME}/${HEROKU_APP_NAME}:${DOCKER_HUB_TAG}
@@ -35,5 +36,6 @@ blocks:
             - heroku auth:token
             - heroku container:login
             - docker tag ${HEROKU_APP_NAME}:${DOCKER_HUB_TAG} registry.heroku.com/${HEROKU_APP_NAME}/web
-            - heroku container:push web release --recursive -a ${HEROKU_APP_NAME}
-            - heroku container:release web release -a ${HEROKU_APP_NAME}
+            - heroku container:push web -a ${HEROKU_APP_NAME}
+            - heroku container:release web -a ${HEROKU_APP_NAME}
+            - heroku run python3 manage.py migrate -a ${HEROKU_APP_NAME}
