@@ -12,10 +12,16 @@ python_version = "3.8"
 
 [packages]
 
-"psycopg2-binary" = "*"
+psycopg2-binary = "*"
+django = "*"
 django-heroku = "*"
 gunicorn = "*"
+dj-database-url = "*"
+django-crispy-forms = "*"
+django-colorfield = "*"
+Pillow = "*"
 
 
 [dev-packages]
 
+pytest = "*"

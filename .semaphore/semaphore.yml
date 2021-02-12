@@ -1,0 +1,29 @@
+version: v1.0
+name: Tests
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Tests
+    task:
+      prologue:
+        commands:
+          - sem-version node 12
+          - sem-version python 3.8
+      secrets:
+        - name: uks
+      jobs:
+        - name: Test
+          commands:
+            - checkout
+            - cp ~/configs/.env ~/UKS/.env
+            - cache restore
+            - pip install pipenv
+            - pipenv install
+            - cache store
+            - pipenv run pytest
+
+promotions:
+  - name: Deploy to Docker Hub and Heroku
+    pipeline_file: deploy-docker-hub-heroku.yml
