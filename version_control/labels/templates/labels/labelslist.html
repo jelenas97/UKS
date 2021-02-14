@@ -1,0 +1,12 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+    {% for label in labels %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h2><a class="article-title" href="{% url 'label-detail' label.id %}">{{ label.name }}</a></h2>
+            <p class="article-content">{{ label.description }}</p>
+
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
