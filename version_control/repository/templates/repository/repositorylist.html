@@ -1,0 +1,17 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+     <div>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'repository-create' %}">New</a>
+    </div>
+    {% for repository in repository %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h4 class="article-content">Name: </h4><p><a class="article-content" href="{% url 'repository-homepage' repository.id %}">{{ repository.name }}</a></p>
+            <h4 class="article-content">Description: </h4><p class="article-content">{{ repository.description }}</p>
+             <div>
+                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'repository-detail' pk=repository.id %}">Details</a>
+             </div>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

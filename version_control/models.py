@@ -7,6 +7,7 @@ from colorfield.fields import ColorField
 from .enums import TaskStatus
 from django.urls import reverse
 
+from .repository.models import Repository
 
 
 class AppUser(models.Model):
@@ -17,12 +18,6 @@ class Organization(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
     members = models.ManyToManyField(AppUser)
-
-class Repository(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    isPrivate = models.BooleanField()
-    contributors = models.ManyToManyField(AppUser)
 
 
 class Project(models.Model):

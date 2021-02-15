@@ -1,0 +1,33 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+  <article class="media content-section">
+
+    <div class="media-body">
+       <h2 class="article-content">Name: </h2><p class="article-content">{{ object.name }}</p>
+       <h2 class="article-content">Description: </h2><p class="article-content">{{ object.description }}</p>
+       <h2 class="article-content">Is Private? </h2><input type="checkbox" disabled {% if object.isPrivate == True %}checked{% endif %}/>
+    <h1 class="article-title">Contributors</h1>
+    <table class="table table-bordered ">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for contributor in object.contributors.all %}
+
+        <tr>
+          <td>{{ contributor.user.username }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+
+    </div>
+    <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'repository-update' pk=object.id  %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'repository-delete' pk=object.id  %}">Delete</a>
+    </div>
+  </article>
+{% endblock content %}
