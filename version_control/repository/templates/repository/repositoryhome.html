@@ -19,6 +19,7 @@
     {% endif %}
 </head>
 <body>
+
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
@@ -60,7 +61,26 @@
           {% endif %}
 
         </div>
+
       </div>
+      <div class="row">
+            <div class="col-md-8">
+                <h1>Repository</h1>
+            </div>
+      </div>
+        <nav class="navbar navbar-expand-md navbar-light bg-secondary">
+        <div class="container">
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+                {{ with }}
+              <a class="nav-item nav-link" href="{% url 'label-list' repoId=request.resolver_match.kwargs.repoId %}">Labels</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
       {% block content %}{% endblock %}
 
     </main>
