@@ -1,5 +1,5 @@
 from version_control.projects.models import Project
-from version_control.models import Organization, Repository
+from version_control.models import Organization
 from django import forms
 from django.urls import reverse
 

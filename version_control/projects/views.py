@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Project
-from version_control.models import Repository, Organization
+from version_control.models import Organization
+from  version_control.repository.models import Repository
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from .forms import ProjectCreationForm
@@ -54,6 +55,7 @@ def project_create_view(request, repoId):
             project.organization = form.cleaned_data['organization']
             project.repository = repo
             project.save()
+            form= ProjectCreationForm(user_id = active_user)
     else:
         form= ProjectCreationForm(user_id = active_user)
 

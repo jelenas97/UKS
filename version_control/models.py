@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from colorfield.fields import ColorField
 from .enums import TaskStatus
+from django.urls import reverse
+from .repository.models import Repository
+
 
 class AppUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -17,13 +20,7 @@ class Organization(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
-class Repository(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    isPrivate = models.BooleanField()
-    contributors = models.ManyToManyField(AppUser)
-
+ 
 class Wiki(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -54,20 +51,13 @@ class Milestone(models.Model):
     isClosed = models.BooleanField()
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
 
-class Label(models.Model):
-    name = models.CharField(max_length=25)
-    description = models.TextField()
-    color = ColorField(default="#FFFFFF")
-    repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
-
-
 class Task(models.Model):
     title = models.CharField(max_length = 50)
     description = models.TextField()
     assignees = models.ManyToManyField(AppUser)
     #project = models.ForeignKey(Project, on_delete=models.CASCADE)
     milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
-    labels = models.ManyToManyField(Label)
+    #labels = models.ManyToManyField(Label)
 
 class TaskRevision(models.Model):
     updatedOn = models.DateTimeField(default=timezone.now)
