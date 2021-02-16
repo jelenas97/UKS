@@ -8,6 +8,6 @@ class ProjectCreationForm(forms.ModelForm):
        model = Project
        fields = ['name', 'description', 'organization']
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self,user_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['organization'].queryset = Organization.objects.all().filter(members=args[1])
+        self.fields['organization'].queryset = Organization.objects.filter(members__user_id__in = [user_id])

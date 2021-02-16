@@ -41,16 +41,22 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def project_create_view(request, repoId):
     active_user = request.user.id
 
-    form= ProjectCreationForm(request.POST, active_user)
-    repo = Repository.objects.get(id=repoId)
-    if form.is_valid():
-        #form.save()
-        project = Project()
-        project.name = form.cleaned_data['name']
-        project.description = form.cleaned_data['description']
-        project.organization = form.cleaned_data['organization']
-        project.repository = repo
-        project.save()
+    if request.method =='POST':
+
+        form= ProjectCreationForm(active_user, request.POST)
+
+        repo = Repository.objects.get(id=repoId)
+        if form.is_valid():
+            #form.save()
+            project = Project()
+            project.name = form.cleaned_data['name']
+            project.description = form.cleaned_data['description']
+            project.organization = form.cleaned_data['organization']
+            project.repository = repo
+            project.save()
+    else:
+        form= ProjectCreationForm(user_id = active_user)
+
 
     context = {
         'form' : form
