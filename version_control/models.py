@@ -6,7 +6,6 @@ from django.utils import timezone
 from colorfield.fields import ColorField
 from .enums import TaskStatus
 from django.urls import reverse
-
 from .repository.models import Repository
 
 
@@ -19,13 +18,9 @@ class Organization(models.Model):
     description = models.TextField()
     members = models.ManyToManyField(AppUser)
 
-
-class Project(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
-
+    def __str__(self):
+        return f'{self.name}'
+ 
 class Wiki(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -56,13 +51,11 @@ class Milestone(models.Model):
     isClosed = models.BooleanField()
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
 
-
-
 class Task(models.Model):
     title = models.CharField(max_length = 50)
     description = models.TextField()
     assignees = models.ManyToManyField(AppUser)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    #project = models.ForeignKey(Project, on_delete=models.CASCADE)
     milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
     #labels = models.ManyToManyField(Label)
 

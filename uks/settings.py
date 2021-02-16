@@ -33,6 +33,7 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'version_control.apps.VersionControlConfig',
+    'version_control.projects.apps.ProjectsConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
