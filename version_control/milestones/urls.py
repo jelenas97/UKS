@@ -1,17 +1,17 @@
 from django.urls import path
 
 from .views import (
-    MilestonesCreateView,
-    MilestonesDetailView,
-    MilestonesDeleteView,
-    MilestonesUpdateView,
-    MilestonesListView
+    MilestoneCreateView,
+    MilestoneDetailView,
+    MilestoneDeleteView,
+    MilestoneUpdateView,
+    MilestoneListView
 )
 
 urlpatterns = [
-    path('label/', MilestonesListView.as_view(), name='milestone-list'),
-    path('label/<int:pk>/', MilestonesDetailView.as_view(), name='milestone-detail'),
-    path('label/new/', MilestonesCreateView.as_view(), name='milestone-create'),
-    path('label/<int:pk>/update/', MilestonesUpdateView.as_view(), name='milestone-update'),
-    path('label/<int:pk>/delete/', MilestonesDeleteView.as_view(), name='milestone-delete'),
+    path('milestones/', MilestoneListView.as_view(), name='milestone-list'),
+    path('milestone/<int:pk>/', MilestoneDetailView.as_view(), name='milestone-detail'),
+    path('milestone/new/', MilestoneCreateView.as_view(), name='milestone-create'),
+    path('milestone/<int:pk>/update/', MilestoneUpdateView.as_view(), name='milestone-update'),
+    path('milestone/<int:pk>/delete/', MilestoneDeleteView.as_view(), name='milestone-delete'),
 ]

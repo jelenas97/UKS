@@ -13,9 +13,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'version_control/main.css' %}">
 
     {% if title %}
-        <title>Django Blog - {{ title }}</title>
+        <title>Version Control - {{ title }}</title>
     {% else %}
-        <title>Django Blog</title>
+        <title>Version Control</title>
     {% endif %}
 </head>
 <body>
@@ -23,7 +23,7 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'version_control_home' %}">Django Blog</a>
+          <a class="navbar-brand mr-4" href="{% url 'version_control_home' %}">Version Control</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
@@ -32,7 +32,7 @@
               <a class="nav-item nav-link" href="{% url 'version_control_home' %}">Home</a>
               <a class="nav-item nav-link" href="#">About</a>
                 {% if user.is_authenticated %}
-                      <a class="nav-item nav-link" href="{% url 'repository-list' %}">Repositories</a>
+                    <a class="nav-item nav-link" href="{% url 'repository-list' %}">Repositories</a>
                 {% endif %}
             </div>
             <!-- Navbar Right Side -->
@@ -74,6 +74,7 @@
             <div class="navbar-nav mr-auto">
                 {{ with }}
               <a class="nav-item nav-link" href="{% url 'label-list' repoId=request.resolver_match.kwargs.repoId %}">Labels</a>
+                <a class="nav-item nav-link" href="{% url 'milestone-list' repoId=request.resolver_match.kwargs.repoId %}">Milestones</a>
             </div>
           </div>
         </div>
