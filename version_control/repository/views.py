@@ -10,6 +10,7 @@ from django.views.generic import (
     DeleteView
 )
 
+from users.models import Profile
 from version_control.repository.models import Repository
 
 
@@ -25,11 +26,12 @@ class RepositoryListView(ListView):
 
 class RepositoryCreateView(LoginRequiredMixin, CreateView):
     model = Repository
-    fields = ['name', 'description', 'isPrivate', 'contributors']
+    fields = ['name', 'description', 'isPrivate']
 
     def test_func(self):
         return True
     def get_success_url(self):
+        self.object.contributors.add(Profile.objects.get(user__username=self.request.user.username))
         return reverse_lazy('repository-list')
 
 class RepositoryDetailView(DetailView):
