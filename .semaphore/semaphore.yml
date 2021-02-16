@@ -8,8 +8,8 @@ blocks:
   - name: Tests
     task:
       env_vars:
-        - name: DATABASE_URL
-          value: "postgresql:sem:sem@localhost:5432/ci_db"
+        - name: try_this
+          value: "postgresql:test:test@localhost:5432/test_db"
       prologue:
         commands:
           - sem-version node 12
@@ -21,12 +21,12 @@ blocks:
           commands:
             - checkout
             - cp ~/configs/.env ~/UKS/.env
+            - ls -a
             - cache restore
-            - sem-service start postgres --username=sem --password=sem --db=ci_db
+            - sem-service start postgres --username=test --password=test --db=test_db
             - pip install pipenv
-            - pipenv install
+            - pipenv install --dev
             - cache store
-            - pipenv run python manage.py migrate
             - pipenv run pytest
 
 promotions:
