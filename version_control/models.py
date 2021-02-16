@@ -15,18 +15,14 @@ class Organization(models.Model):
     description = models.TextField()
     members = models.ManyToManyField(AppUser)
 
+    def __str__(self):
+        return f'{self.name}'
+
 class Repository(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
     isPrivate = models.BooleanField()
     contributors = models.ManyToManyField(AppUser)
-
-
-class Project(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
 
 class Wiki(models.Model):
     title = models.CharField(max_length=50)
@@ -69,7 +65,7 @@ class Task(models.Model):
     title = models.CharField(max_length = 50)
     description = models.TextField()
     assignees = models.ManyToManyField(AppUser)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    #project = models.ForeignKey(Project, on_delete=models.CASCADE)
     milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
     labels = models.ManyToManyField(Label)
 
