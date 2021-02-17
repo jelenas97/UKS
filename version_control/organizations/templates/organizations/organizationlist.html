@@ -1,0 +1,12 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+    {% for organization in organizations %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h2><a class="article-title" href="{% url 'organization-detail' organization.id %}">{{ organization.name }}</a></h2>
+            <p class="article-content">{{ organization.description }}</p>
+
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
