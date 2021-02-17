@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from django.shortcuts import render
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -10,7 +10,9 @@ from django.views.generic import (
 )
 from django.shortcuts import get_object_or_404
 
-from .models import Label, Repository
+from .models import Label
+from ..repository.models import Repository
+
 
 class LabelListView(ListView):
     template_name = 'labels/labelslist.html'
@@ -32,6 +34,10 @@ class LabelCreateView(LoginRequiredMixin, CreateView):
 class LabelDetailView(DetailView):
     model = Label
 
+    def get_queryset(self):
+        return Label.objects.filter(pk = self.kwargs['pk'])
+
+
 class LabelUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Label
     fields = ['name', 'description', 'color']
@@ -41,7 +47,8 @@ class LabelUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class LabelDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Label
-    success_url = '/'
+    def get_success_url(self):
+        return reverse_lazy('label-list', kwargs={'repoId': self.object.repository.id})
 
     def test_func(self):
         return True

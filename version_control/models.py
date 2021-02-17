@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from .enums import TaskStatus
+from django.urls import reverse
+from .repository.models import Repository
 
 
 class AppUser(models.Model):
@@ -16,12 +18,8 @@ class Organization(models.Model):
     description = models.TextField()
     members = models.ManyToManyField(AppUser)
 
-
-class Repository(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    isPrivate = models.BooleanField()
-    contributors = models.ManyToManyField(AppUser)
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Project(models.Model):
@@ -57,7 +55,7 @@ class Task(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     assignees = models.ManyToManyField(AppUser)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    #project = models.ForeignKey(Project, on_delete=models.CASCADE)
     milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
     # labels = models.ManyToManyField(Label)
 

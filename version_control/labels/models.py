@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 
-from version_control.models import Repository
+from version_control.repository.models import Repository
 
 
 class Label(models.Model):
@@ -14,4 +14,4 @@ class Label(models.Model):
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse('label-detail', kwargs={'pk': self.pk})
+        return reverse('label-detail', kwargs={'repoId': self.repository.id, 'pk': self.pk})
