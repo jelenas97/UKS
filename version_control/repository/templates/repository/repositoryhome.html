@@ -72,8 +72,9 @@
         <div class="container">
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-                {{ with }}
               <a class="nav-item nav-link" href="{% url 'label-list' repoId=request.resolver_match.kwargs.repoId %}">Labels</a>
+              <a class="nav-item nav-link" href="{% url 'contributors-list' repoId=request.resolver_match.kwargs.repoId %}">Contributors</a>
+
             </div>
           </div>
         </div>
