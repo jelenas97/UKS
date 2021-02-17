@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from enum import Enum
-from version_control.models import Organization
+from version_control.organizations.models import Organization
 from version_control.repository.models import Repository
 # Create your models here.
 

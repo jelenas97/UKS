@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Project
-from version_control.models import Organization
+from version_control.organizations.models import Organization
 from  version_control.repository.models import Repository
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
