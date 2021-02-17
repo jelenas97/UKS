@@ -12,15 +12,10 @@ from .repository.models import Repository
 class AppUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField()
-
-class Organization(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    members = models.ManyToManyField(AppUser)
-
+    
     def __str__(self):
-        return f'{self.name}'
- 
+        return self.user.username
+
 class Wiki(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
