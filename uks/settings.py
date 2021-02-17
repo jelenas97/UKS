@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "testing_environment")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
 # Application definition
 
@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     'version_control.milestones.apps.MilestonesConfig',
     'version_control.branches.apps.BranchesConfig',
     'version_control.commits.apps.CommitsConfig',
+    'version_control.wiki.apps.WikiConfig',
+    # Disable Django's own staticfiles handling in favour of WhiteNoise, for
+    # greater consistency between gunicorn and `./manage.py runserver`. See:
+    # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 ]
