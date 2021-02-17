@@ -17,5 +17,7 @@ urlpatterns = [
 
     path('repository/<int:repoId>/', include('version_control.labels.urls')),
 
+    path('repository/<int:repoId>/', include('version_control.milestones.urls')),
+
 ]
 

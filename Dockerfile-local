@@ -21,7 +21,7 @@ RUN pip3 install pipenv
 COPY ./Pipfile .
 COPY ./Pipfile.lock .
 
-RUN pipenv install --skip-lock --system --dev
+RUN pipenv install
 RUN apk del build-deps
 RUN apk --no-cache add musl-dev linux-headers g++
 
