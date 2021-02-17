@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from .models import Organization
-from .forms import OrganizationCreationForm
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -35,21 +35,11 @@ class OrganizationDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView
     def test_func(self):
         return True
 
-def organization_create_view(request):
+class OrganizationCreateView(LoginRequiredMixin, CreateView):
+    model = Organization
+    fields = ['name', 'description', 'members']
 
-    if request.method =='POST':
-        form= OrganizationCreationForm(request.POST)
-        if form.is_valid:
-            #form.save()
-            organization= Organization()
-            organization.name=form.cleaned_data['name']
-            organization.description= form.cleaned_data['description']
-            organization.members = form.cleaned_data['members']
-            organization.save()
-            form= OrganizationCreationForm()
-    else:
-        form= OrganizationCreationForm()
-    context = {
-        'form' : form
-    }
-    return render(request, "organizations/organization_creation_form.html", context)
+    def test_func(self):
+        return True
+    def get_success_url(self):
+        return reverse_lazy('organization-list')
