@@ -44,10 +44,8 @@ INSTALLED_APPS = [
     'version_control.labels.apps.LabelsConfig',
     'version_control.repository.apps.RepositoryConfig',
     'version_control.organizations.apps.OrganizationsConfig',
-    # Disable Django's own staticfiles handling in favour of WhiteNoise, for
-    # greater consistency between gunicorn and `./manage.py runserver`. See:
-    # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'version_control.milestones.apps.MilestonesConfig',
+    'version_control.branches.apps.BranchesConfig',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 ]

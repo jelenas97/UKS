@@ -1,5 +1,5 @@
 from django.db import models
-from version_control.models import AppUser
+from users.models import Profile as AppUser
 from django.urls import reverse
 
 # Create your models here.
