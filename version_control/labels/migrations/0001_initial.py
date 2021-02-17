@@ -18,7 +18,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=25)),
                 ('description', models.TextField()),
                 ('color', colorfield.fields.ColorField(default='#FFFFFF', max_length=18)),
-
             ],
         ),
     ]
