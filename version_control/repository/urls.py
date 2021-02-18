@@ -5,11 +5,14 @@ from .views import (
     RepositoryCreateView,
     RepositoryDeleteView,
     RepositoryDetailView,
-    RepositoryUpdateView
+    RepositoryUpdateView,
+    ContributorDeleteView
 )
 urlpatterns = [
     path('repository/', RepositoryListView.as_view(), name='repository-list'),
     path('repository/<int:repoId>/', views.home, name='repository-homepage'),
+    path('repository/<int:repoId>/contributors/', views.contributors_list_add, name='contributors-list'),
+    path('repository/<int:repoId>/contributors/remove/<int:pk>/', ContributorDeleteView.as_view(), name='collaborators-remove'),
     path('repository/<int:pk>/details/', RepositoryDetailView.as_view(), name='repository-detail'),
     path('repository/new/', RepositoryCreateView.as_view(), name='repository-create'),
     path('repository/<int:pk>/update/', RepositoryUpdateView.as_view(), name='repository-update'),
