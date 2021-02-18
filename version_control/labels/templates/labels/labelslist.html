@@ -1,0 +1,16 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+
+    <div>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'label-create' repoId=request.resolver_match.kwargs.repoId %}">New</a>
+    </div>
+    {% for label in labels %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h4 class="article-content">Name: </h4><p><a class="article-content" href="{% url 'label-detail' repoId=label.repository.id pk=label.id %}">{{ label.name }}</a></p>
+            <h4 class="article-content">Description: </h4><p class="article-content">{{ label.description }}</p>
+
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
