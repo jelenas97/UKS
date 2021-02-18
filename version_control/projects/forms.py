@@ -4,6 +4,9 @@ from django import forms
 from django.urls import reverse
 from django.urls import reverse_lazy
 
+from version_control.wiki.models import Wiki
+
+
 class ProjectCreationForm(forms.ModelForm):
     class Meta:
        model = Project
@@ -12,6 +15,15 @@ class ProjectCreationForm(forms.ModelForm):
     def __init__(self,user_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['organization'].queryset = Organization.objects.filter(members__user_id__in = [user_id])
+
+
+class WikiCreateForm(forms.ModelForm):
+    class Meta:
+       model = Wiki
+       fields = ['title', 'content']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 class ProjectUpdateForm(forms.ModelForm):
