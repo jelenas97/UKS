@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile-local
     command: sh -c "pipenv run python manage.py makemigrations &&
                     pipenv run python manage.py migrate &&
-                    python manage.py createsuperuser &&
+                    pipenv run python manage.py createsuperuser --username admin --noinput --email 'admin@admin.com' &&
                     pipenv run gunicorn uks.wsgi:application --bind 0.0.0.0:${PORT}"
     volumes:
       - ./:/usr/src/app/
