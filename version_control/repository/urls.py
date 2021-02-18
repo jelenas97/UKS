@@ -16,6 +16,7 @@ urlpatterns = [
     path('repository/<int:pk>/delete/', RepositoryDeleteView.as_view(), name='repository-delete'),
 
     path('repository/<int:repoId>/', include('version_control.labels.urls')),
+    path('repository/<int:repoId>/', include('version_control.wiki.urls')),
 
 ]
 

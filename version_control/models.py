@@ -22,13 +22,6 @@ class Organization(models.Model):
         return f'{self.name}'
 
 
-class Project(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
-
-
 class Branch(models.Model):
     name = models.CharField(max_length=50)
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
