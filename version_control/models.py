@@ -32,17 +32,3 @@ class WikiRevision(models.Model):
     updatedOn = models.DateTimeField(default=timezone.now)
     reviser = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
-
-class Task(models.Model):
-    title = models.CharField(max_length=50)
-    description = models.TextField()
-    assignees = models.ManyToManyField(Profile)
-    # project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
-    # labels = models.ManyToManyField(Label)
-
-
-class TaskRevision(models.Model):
-    updatedOn = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=255, choices=TaskStatus.choices())
-    reviser = models.ForeignKey(AppUser, on_delete=models.CASCADE)
