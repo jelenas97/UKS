@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-    {{ form.media }}
+        {{ form.media }}
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Create Milestone</legend>
+                <legend class="border-bottom mb-4">Create Branch</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">

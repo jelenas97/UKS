@@ -5,12 +5,12 @@
         <a class="btn btn-success btn-sm mt-1 mb-1"
            href="{% url 'milestone-create' repoId=request.resolver_match.kwargs.repoId %}">New</a>
     </div>
-    {% for label in labels %}
+    {% for milestone in milestones %}
         <article class="media content-section">
             <div class="media-body">
                 <h4 class="article-content">Name: </h4>
                 <p><a class="article-content"
-                      href="{% url 'milestone-detail' repoId=label.repository.id pk=label.id %}">{{ milestone.name }}</a>
+                      href="{% url 'milestone-detail' repoId=milestone.repository.id pk=milestone.id %}">{{ milestone.name }}</a>
                 </p>
                 <h4 class="article-content">Description: </h4>
                 <p class="article-content">{{ milestone.description }}</p>
