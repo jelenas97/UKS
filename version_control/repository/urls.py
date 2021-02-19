@@ -7,6 +7,7 @@ from .views import (
     RepositoryDetailView,
     RepositoryUpdateView
 )
+
 urlpatterns = [
     path('repository/', RepositoryListView.as_view(), name='repository-list'),
     path('repository/<int:repoId>/', views.home, name='repository-homepage'),
@@ -18,6 +19,7 @@ urlpatterns = [
     path('repository/<int:repoId>/', include('version_control.labels.urls')),
 
     path('repository/<int:repoId>/', include('version_control.milestones.urls')),
+    path('repository/<int:repoId>/', include('version_control.projects.urls')),
 
 ]
 
