@@ -15,3 +15,6 @@ class Label(models.Model):
 
     def get_absolute_url(self):
         return reverse('label-detail', kwargs={'repoId': self.repository.id, 'pk': self.pk})
+
+    def __str__(self):
+        return f'{self.name}'
