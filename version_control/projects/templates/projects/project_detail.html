@@ -8,8 +8,12 @@
 
     </div>
     <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'project-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'project-delete' object.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'project-update' repoId=object.repository.id pk=object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'project-delete' repoId=object.repository.id pk=object.id %}">Delete</a>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'task-create' repoId=object.repository.id pk=object.id %}">Create new task</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'task-list' repoId=object.repository.id pk=object.id %}">See tasks</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'task-table' repoId=object.repository.id pk=object.id %}">Task table</a>
     </div>
   </article>
+
 {% endblock content %}

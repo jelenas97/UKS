@@ -28,10 +28,12 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('', include('version_control.urls')),
+    path('', include('version_control.tasks.urls')),
     path('', include('version_control.projects.urls')),
     path('', include('version_control.repository.urls')),
     path('', include('version_control.organizations.urls')),
     path('', include('version_control.milestones.urls')),
+    path('', include('version_control.branches.urls')),
 ]
 
 if settings.DEBUG:

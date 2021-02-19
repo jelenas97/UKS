@@ -39,3 +39,4 @@ blocks:
             - heroku container:push web -a ${HEROKU_APP_NAME}
             - heroku container:release web -a ${HEROKU_APP_NAME}
             - heroku run python3 manage.py migrate -a ${HEROKU_APP_NAME}
+            - heroku run python3 manage.py createsuperuser --username admin --noinput --email 'admin@admin.com' -a ${HEROKU_APP_NAME}
