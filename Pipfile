@@ -15,6 +15,7 @@ dj-database-url = "*"
 django-crispy-forms = "*"
 django-colorfield = "*"
 Pillow = "*"
+ghapi = "*"
 
 [dev-packages]
 pytest = "*"
