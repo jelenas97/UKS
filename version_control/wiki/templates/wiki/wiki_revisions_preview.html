@@ -20,8 +20,6 @@
                 <p class="ml-5 pl-1"><small> {{ revision.reviser.user.username }}
                     commited {{ revision.updatedOn }}</small></p>
             </div>
-
-            <a href="{% url 'wiki-compare' repoId=request.resolver_match.kwargs.repoId %}">Compare wikis</a>
         {% endfor %}
     </div>
 {% endblock content %}
