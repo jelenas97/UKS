@@ -4,7 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from colorfield.fields import ColorField
-from .enums import TaskStatus
 from .milestones.models import Milestone
 from django.urls import reverse
 from .repository.models import Repository
@@ -42,18 +41,3 @@ class Commit(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
     commitedBy = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     # changes needs to be modeled
-
-
-class Task(models.Model):
-    title = models.CharField(max_length=50)
-    description = models.TextField()
-    assignees = models.ManyToManyField(AppUser)
-    # project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
-    # labels = models.ManyToManyField(Label)
-
-
-class TaskRevision(models.Model):
-    updatedOn = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=255, choices=TaskStatus.choices())
-    reviser = models.ForeignKey(AppUser, on_delete=models.CASCADE)
