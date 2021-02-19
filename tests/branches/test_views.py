@@ -35,7 +35,7 @@ def test_branches_detail_view():
     Repository.objects.create(name="Name", description="Desc", isPrivate=True)
     Branch.objects.create(name="Branch", repository_id=1)
 
-    response = client.get(reverse("branch-detail", args=[1, "Branch"]))
+    response = client.get(reverse("branch-detail", args=[1, 1]))
     assert response.status_code == 200
     assert "branches/branch_detail.html" in (t.name for t in response.templates)
 

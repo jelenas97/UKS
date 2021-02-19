@@ -35,11 +35,11 @@ def test_branch_create_view():
 
 @pytest.mark.django_db
 def test_branch_update_view():
-    url = reverse('branch-update', args=[1, "name"])
+    url = reverse('branch-update', args=[1, 1])
     assert resolve(url).func.view_class == BranchUpdateView
 
 
 @pytest.mark.django_db
 def test_branch_delete():
-    url = reverse('branch-delete', args=[1, "name"])
+    url = reverse('branch-delete', args=[1, 1])
     assert resolve(url).func.view_class == BranchDeleteView
