@@ -8,6 +8,7 @@
             <table class="table table-bordered ">
               <thead>
                 <tr>
+                  <td>#</td>
                   <th scope="col">Name</th>
                   <td></td>
                 </tr>
@@ -19,11 +20,14 @@
               {% for contributor in contributors %}
 
                 <tr>
+                  <td>{{ forloop.counter }}</td>
                   <td>{{ contributor.user.username }}</td>
                   {% if user.username != contributor.user.username %}
-                  <td><a class="btn btn-danger" href="{% url 'collaborators-remove'   repoId=request.resolver_match.kwargs.repoId pk=contributor.id %}">Remove</a></td>
+                      {% if owner != contributor.user.username %}
+                      <td><a class="btn btn-danger" href="{% url 'collaborators-remove'   repoId=request.resolver_match.kwargs.repoId pk=contributor.id %}">Remove</a></td>
+                      {% endif %}
                   {% else %}
-                  <td></td>
+                      <td></td>
                   {% endif %}
                 </tr>
 
