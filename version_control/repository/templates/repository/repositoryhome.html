@@ -34,6 +34,7 @@
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link" href="{% url 'repository-list' %}">Repositories</a>
                     <a class="nav-item nav-link" href="{% url 'organization-list' %}">Organizations</a>
+
                 {% endif %}
             </div>
             <!-- Navbar Right Side -->
@@ -76,6 +77,7 @@
               <a class="nav-item nav-link" href="{% url 'label-list' repoId=request.resolver_match.kwargs.repoId %}">Labels</a>
               <a class="nav-item nav-link" href="{% url 'contributors-list' repoId=request.resolver_match.kwargs.repoId %}">Contributors</a>
               <a class="nav-item nav-link" href="{% url 'milestone-list' repoId=request.resolver_match.kwargs.repoId %}">Milestones</a>
+              <a class="nav-item nav-link" href="{% url 'real-github' repoId=request.resolver_match.kwargs.repoId %}">Real Github</a>
 
             </div>
           </div>
