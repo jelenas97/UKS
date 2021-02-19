@@ -9,7 +9,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
 )
 from ghapi.core import GhApi
 
@@ -37,7 +37,10 @@ class RepositoryCreateView(LoginRequiredMixin, CreateView):
     def test_func(self):
         return True
     def get_success_url(self):
-        self.object.contributors.add(Profile.objects.get(user__username=self.request.user.username))
+        user = Profile.objects.get(user__username=self.request.user.username)
+        self.object.owner = user
+        self.object.contributors.add(user)
+        self.object.save()
         return reverse_lazy('repository-list')
 
 class RepositoryDetailView(DetailView):
@@ -69,6 +72,7 @@ class RepositoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def contributors_list_add(request, repoId):
     repository = Repository.objects.get(id=repoId)
+    owner = repository.owner.user.username
     users = Profile.objects.filter().exclude(user_id__in=repository.contributors.values_list('id', flat=True))
     contributors = repository.contributors.all()
     if request.method == 'POST':
@@ -83,7 +87,7 @@ def contributors_list_add(request, repoId):
         form = FormContributors(users = users)
 
 
-    context = {'form': form, 'users': users, 'contributors': contributors}
+    context = {'form': form, 'users': users, 'contributors': contributors, 'owner' : owner}
     return render(request, 'repository/contributors_list.html', context)
 
 
@@ -98,6 +102,7 @@ class ContributorDeleteView(LoginRequiredMixin, DeleteView):
         repository.contributors.remove(contributor)
         success_url = reverse_lazy('repository-homepage', kwargs={'repoId': self.kwargs['repoId']})
         return redirect(success_url)
+
 
 def insights_page_real(request, repoId):
     r = lambda: random.randint(0, 255)
@@ -123,6 +128,31 @@ def insights_page_real(request, repoId):
     context = {'array': json.dumps(array), 'array2': json.dumps(array2)}
 
     return render(request, 'repository/insights_page.html', context)
+
+
+def get_real_github_data(request, repoId):
+    repository = Repository.objects.get(id=repoId)
+    api = GhApi(owner='jelenas97',name='UKS',repo='UKS')
+    branches = api.repos.list_branches(per_page=100)
+    stats = api.repos.get_contributors_stats()
+    for stat in stats:
+        print(stat)
+
+    context = {'branches' : branches}
+    return render(request, 'repository/real_github_data.html', context)
+
+
+def get_commits_from_branch(request, repoId, branch):
+    repository = Repository.objects.get(id=repoId)
+    api = GhApi(owner='jelenas97',name='UKS',repo='UKS')
+    commits = api.repos.list_commits(sha=branch, per_page=40)
+    for commit in commits:
+        print(commit)
+
+
+    context = {'commits' : commits}
+    return render(request, 'repository/commits_from_branch.html', context)
+
 
 def insights_page(request, repoId):
     r = lambda: random.randint(0, 255)

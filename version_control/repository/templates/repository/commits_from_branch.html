@@ -1,0 +1,15 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+    <h2>Commits: </h2>
+    {% for commit in commits %}
+        <article class="media content-section">
+          <div class="media-body">
+           <h3 class="article-content">Commit #{{ forloop.counter }}</h3>
+           <img class="rounded-circle article-img" src="{{ commit.author.avatar_url }}"> {{ commit.author.login }}
+           <h5 class="article-content">Message: </h5><p class="article-content">{{ commit.commit.message }}</p>
+           <h5 class="article-content">Date: </h5><p class="article-content">{{ commit.commit.committer.date }}</p>
+           <h5 class="article-content">Url: </h5><p class="article-content">{{ commit.html_url }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

@@ -77,6 +77,8 @@
                 <a class="nav-item nav-link" href="{% url 'contributors-list' repoId=request.resolver_match.kwargs.repoId %}">Contributors</a>
                 <a class="nav-item nav-link" href="{% url 'milestone-list' repoId=request.resolver_match.kwargs.repoId %}">Milestones</a>
                 <a class="nav-item nav-link" href="{% url 'branch-list' repoId=request.resolver_match.kwargs.repoId %}">Branches</a>
+                <a class="nav-item nav-link" href="{% url 'real-github' repoId=request.resolver_match.kwargs.repoId %}">Real Github</a>
+
                 <a class="nav-item nav-link" href="{% url 'insights-page' repoId=request.resolver_match.kwargs.repoId %}">Insights</a>
                 <a class="nav-item nav-link" href="{% url 'insights-page-real' repoId=request.resolver_match.kwargs.repoId %}">Insights from real git</a>
 

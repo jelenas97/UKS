@@ -1,0 +1,12 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+    <h2>Branches: </h2>
+    {% for branch in branches %}
+        <article class="media content-section">
+          <div class="media-body">
+           <a class="article-content" href="{% url 'real-branch-commits' repoId=request.resolver_match.kwargs.repoId branch=branch.name %}">{{ branch.name }}</a>
+
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
