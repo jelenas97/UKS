@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from version_control.branches.models import Branch
+from version_control.commits.models import Commit
 from version_control.projects.models import Project 
 from version_control.models import AppUser
 from version_control.repository.models import Repository
@@ -16,3 +17,4 @@ admin.site.register(AppUser)
 admin.site.register(Organization)
 admin.site.register(Milestone)
 admin.site.register(Branch)
+admin.site.register(Commit)

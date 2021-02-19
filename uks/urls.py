@@ -33,6 +33,7 @@ urlpatterns = [
     path('', include('version_control.organizations.urls')),
     path('', include('version_control.milestones.urls')),
     path('', include('version_control.branches.urls')),
+    path('', include('version_control.commits.urls')),
 ]
 
 if settings.DEBUG:
