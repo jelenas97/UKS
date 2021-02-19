@@ -33,6 +33,28 @@ def saveWiki(request, repoId):
     return render(request, "wiki/wiki_form.html", {'form': form})
 
 
+def saveWiki(request, repoId):
+    repo = Repository.objects.get(id=repoId)
+
+    if request.method == 'POST':
+        form = WikiCreateForm(request.POST)
+
+        if form.is_valid():
+            wiki = Wiki.objects.create(title=form.cleaned_data['title'],
+                                       content=form.cleaned_data['content'],
+                                       repository_id=repo.id)
+            wiki.save()
+            wikiRevision = WikiRevision.objects.create(wiki_id=wiki.id, reviser_id=request.user.id)
+            wikiRevision.save()
+
+            return HttpResponseRedirect('/repository/' + str(repo.id) + '/wiki')
+    else:
+        form = WikiCreateForm()
+
+    return render(request, "wiki/wiki_form.html", {'form': form})
+
+
+
 class WikiUpdateView(LoginRequiredMixin, UpdateView):
     model = Wiki
     fields = ['title', 'content']
