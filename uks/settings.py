@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'colorfield',
     'version_control.labels.apps.LabelsConfig',
     'version_control.repository.apps.RepositoryConfig',
+    'version_control.tasks.apps.TasksConfig',
     'version_control.organizations.apps.OrganizationsConfig',
     'version_control.milestones.apps.MilestonesConfig',
     'version_control.branches.apps.BranchesConfig',

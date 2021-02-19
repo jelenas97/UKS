@@ -8,6 +8,7 @@ from .views import (
     RepositoryUpdateView,
     ContributorDeleteView
 )
+
 urlpatterns = [
     path('repository/', RepositoryListView.as_view(), name='repository-list'),
     path('repository/<int:repoId>/', views.home, name='repository-homepage'),
@@ -17,10 +18,13 @@ urlpatterns = [
     path('repository/new/', RepositoryCreateView.as_view(), name='repository-create'),
     path('repository/<int:pk>/update/', RepositoryUpdateView.as_view(), name='repository-update'),
     path('repository/<int:pk>/delete/', RepositoryDeleteView.as_view(), name='repository-delete'),
+    path('repository/<int:repoId>/realGithub/', views.get_real_github_data, name='real-github'),
+    path('repository/<int:repoId>/realGithub/branch/<path:branch>/commits/', views.get_commits_from_branch, name='real-branch-commits'),
 
     path('repository/<int:repoId>/', include('version_control.labels.urls')),
 
     path('repository/<int:repoId>/', include('version_control.milestones.urls')),
+    path('repository/<int:repoId>/', include('version_control.projects.urls')),
     path('repository/<int:repoId>/', include('version_control.branches.urls')),
     path('repository/<int:repoId>/', include('version_control.commits.urls')),
 

@@ -20,6 +20,7 @@ class AppUser(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Wiki(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -30,7 +31,7 @@ class Wiki(models.Model):
 class WikiRevision(models.Model):
     wiki = models.ForeignKey(Wiki, on_delete=models.CASCADE)
     updatedOn = models.DateTimeField(default=timezone.now)
-    reviser = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    reviser = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
 
 class Task(models.Model):
