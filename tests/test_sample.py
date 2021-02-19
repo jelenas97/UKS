@@ -1,5 +1,2 @@
-import os
-
-
-def test_sample():
+def test_sanity():
     assert 1 == 1
