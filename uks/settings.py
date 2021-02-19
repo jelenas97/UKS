@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'version_control.organizations.apps.OrganizationsConfig',
     'version_control.milestones.apps.MilestonesConfig',
     'version_control.branches.apps.BranchesConfig',
+    'version_control.commits.apps.CommitsConfig',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 ]

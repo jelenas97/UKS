@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from colorfield.fields import ColorField
+
+from users.models import Profile
 from .branches.models import Branch
 from .enums import TaskStatus
 from .milestones.models import Milestone
@@ -18,6 +20,7 @@ class AppUser(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Wiki(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -30,10 +33,3 @@ class WikiRevision(models.Model):
     updatedOn = models.DateTimeField(default=timezone.now)
     reviser = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
-
-class Commit(models.Model):
-    message = models.CharField(max_length=100)
-    commitedOn = models.DateTimeField(default=timezone.now)
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
-    commitedBy = models.ForeignKey(AppUser, on_delete=models.CASCADE)
-    # changes needs to be modeled

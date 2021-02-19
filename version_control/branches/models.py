@@ -9,4 +9,4 @@ class Branch(models.Model):
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse('branch-detail', kwargs={'repoId': self.repository.id, 'pk': self.name})
+        return reverse('branch-detail', kwargs={'repoId': self.repository.id, 'pk': self.id})
