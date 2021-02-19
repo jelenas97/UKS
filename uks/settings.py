@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'colorfield',
     'version_control.labels.apps.LabelsConfig',
     'version_control.repository.apps.RepositoryConfig',
+    'version_control.tasks.apps.TasksConfig',
     'version_control.organizations.apps.OrganizationsConfig',
     # Disable Django's own staticfiles handling in favour of WhiteNoise, for
     # greater consistency between gunicorn and `./manage.py runserver`. See:
