@@ -1,0 +1,66 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+    {% if wikis %}
+        <div class="col-lg-2 offset-lg-10 text-right mr-0 pr-0 mb-3">
+            <button class="btn btn-dark">
+                {% with wikis|first as firstWiki %}
+                    <a class="text-white" href="{% url 'wiki-update' repoId=firstWiki.repository.id pk=firstWiki.id %}">
+                        Edit
+                    </a>
+                {% endwith %}
+            </button>
+            <button class="btn btn-success">
+                <a class="text-white" href="{% url 'wiki-create' repoId=request.resolver_match.kwargs.repoId %}">
+                    New page
+                </a>
+            </button>
+        </div>
+
+        <div class="row">
+            {% with wikis|first as firstWiki %}
+                <div class="col-lg-8 jumbotron">
+                    <h4>{{ firstWiki.title }}</h4>
+                    <a href="{% url 'wiki-revisions-preview' repoId=firstWiki.repository.id pk=firstWiki.id %}"><p>
+                        Number of
+                        revisions: {{ wikiRevisions | length }}</p></a>
+                    <hr>
+                    <h5>{{ firstWiki.content }}</h5>
+                </div>
+            {% endwith %}
+
+
+            <div class="col-lg-4">
+                <div class="content-section">
+                    <h3>Pages</h3>
+                    <ul class="list-group">
+                        {% for wiki in wikis %}
+                            <li class="list-group-item list-group-item-light">
+                                <p class="pt-3"><a
+                                        href="{% url 'wiki-page-preview' repoId=wiki.repository.id pk=wiki.id %}">{{ wiki.title }}</a>
+                                </p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+
+    <div class="row">
+        <div class="col-lg-10">
+            <h3 class="col-lg-4 offset-lg-4">There are no wikis</h3>
+        </div>
+
+        <div class="col-lg-2 text-right">
+            <button class="btn btn-success">
+                <a class="text-white" href="{% url 'wiki-create' repoId=request.resolver_match.kwargs.repoId %}">
+                    New page
+                </a>
+            </button>
+        </div>
+    </div>
+
+    {% endif %}
+
+{% endblock content %}

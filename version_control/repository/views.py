@@ -1,3 +1,5 @@
+import json
+import random
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect
@@ -9,10 +11,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from ghapi.core import GhApi
 
 from users.models import Profile
+from version_control.commits.models import Commit
 from version_control.repository.forms import FormContributors
 from version_control.repository.models import Repository
+from version_control.tasks.models import Task
 
 from ghapi.core import GhApi
 
@@ -99,6 +104,30 @@ class ContributorDeleteView(LoginRequiredMixin, DeleteView):
         success_url = reverse_lazy('repository-homepage', kwargs={'repoId': self.kwargs['repoId']})
         return redirect(success_url)
 
+def insights_page_real(request, repoId):
+    r = lambda: random.randint(0, 255)
+    api = GhApi(owner='jelenas97',name='UKS',repo='UKS')
+
+    stats = api.repos.get_contributors_stats()
+    closed_issues = api.issues.list_for_repo(state = 'closed')
+    open_issues = api.issues.list_for_repo(state = 'open')
+    array = ([
+        ['User', 'Number of commits', {'role': 'style'}]
+    ]);
+    for stat in stats:
+        array.append([stat.author.login, stat.total, '#%02X%02X%02X' % (r(), r(), r()) ])
+
+
+
+    array2 = ([
+          ['Task', 'Hours per Day'],
+          ['Open',     len(open_issues)],
+          ['Closed',      len(closed_issues)],
+
+    ]);
+    context = {'array': json.dumps(array), 'array2': json.dumps(array2)}
+
+    return render(request, 'repository/insights_page.html', context)
 
 def get_real_github_data(request, repoId):
     repository = Repository.objects.get(id=repoId)
@@ -121,3 +150,28 @@ def get_commits_from_branch(request, repoId, branch):
 
     context = {'commits' : commits}
     return render(request, 'repository/commits_from_branch.html', context)
+
+
+def insights_page(request, repoId):
+    r = lambda: random.randint(0, 255)
+
+    array = ([
+        ['User', 'Number of commits',{ 'role' : 'style' }]
+    ]);
+    repository = Repository.objects.get(id=repoId)
+    contributors = repository.contributors.all()
+    for contributor in contributors:
+        commits = Commit.objects.filter(commitedBy_id=contributor.id)
+        array.append([contributor.user.username, len(commits), '#%02X%02X%02X' % (r(), r(), r()) ])
+
+    tasks_open = Task.objects.filter(project__repository_id=repoId).exclude(status="DONE")
+    tasks_close = Task.objects.filter(project__repository_id=repoId).filter(status="DONE")
+    array2 = ([
+          ['Task', 'Hours per Day'],
+          ['Open',     len(tasks_open)],
+          ['Closed',      len(tasks_close)],
+
+    ]);
+    context = {'array': json.dumps(array), 'array2': json.dumps(array2)}
+
+    return render(request, 'repository/insights_page.html', context)
