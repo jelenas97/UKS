@@ -9,13 +9,13 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('milestones', '0001_initial'),
         ('repository', '0001_initial'),
+        ('branches', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='milestone',
+            model_name='branch',
             name='repository',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='repository.repository'),
         ),
