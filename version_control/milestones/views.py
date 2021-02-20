@@ -33,7 +33,7 @@ class MilestoneDetailView(DetailView):
 
 class MilestoneUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
-        pass
+        return True
 
     model = Milestone
     fields = ['name', 'description', 'due_date']
@@ -41,7 +41,7 @@ class MilestoneUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class MilestoneDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
-        pass
+        return True
 
     model = Milestone
 
