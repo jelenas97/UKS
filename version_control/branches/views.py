@@ -28,12 +28,12 @@ class BranchDetailView(DetailView):
     model = Branch
 
     def get_object(self, queryset=None):
-        return Branch.objects.get(name=self.kwargs['pk'])
+        return Branch.objects.get(id=self.kwargs['pk'])
 
 
 class BranchUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
-        pass
+        return True
 
     model = Branch
     fields = ['name']
@@ -41,7 +41,7 @@ class BranchUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class BranchDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
-        pass
+        return True
 
     model = Branch
 

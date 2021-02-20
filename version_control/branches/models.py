@@ -6,7 +6,7 @@ from version_control.repository.models import Repository
 
 class Branch(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
+    repository = models.ForeignKey(Repository, on_delete=models.CASCADE, null = True)
 
     def get_absolute_url(self):
-        return reverse('branch-detail', kwargs={'repoId': self.repository.id, 'pk': self.name})
+        return reverse('branch-detail', kwargs={'repoId': self.repository.id, 'pk': self.id})

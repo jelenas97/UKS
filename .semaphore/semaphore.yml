@@ -27,6 +27,7 @@ blocks:
             - pip install pipenv
             - pipenv install --dev
             - cache store
+            - python manage.py collectstatic
             - pipenv run pytest
 
 promotions:

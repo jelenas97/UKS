@@ -1,0 +1,43 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+  <article class="media content-section">
+
+    <div class="media-body">
+        <h2 class="article-title">{{ object.title }}</h2>
+        <br>
+        <div>
+          <p><b>Description:</b> {{ object.description }}</p>
+          <p><b>Project:</b> {{ object.project.name}}</p>
+          <p><b>Milestone:</b> {{ object.milestone.name }}</p>
+
+          <p><b>Labels:</b></p>
+          <div class=" display: table; margin-left:5px; ">
+            {% for label in object.labels.all %}
+              <div style="background-color:{{label.color}} ;
+                          width: 70px;
+                          height: 40px;
+                          color: black;
+                          border-radius: 50%;
+                          font-size: 1.3em; display: table-cell;text-align:center; ">{{ label.name }}
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+          <p><b>Assignees:</b></p>
+          <ul>
+            {% for a in object.assignees.all %}
+                <li> {{a.user.username}}</li>
+            {% endfor %}
+          </ul>
+          <br>
+          <p><b>Task status:</b>  {{object.status}}</p>
+          <br>
+        </div>
+    </div>
+    <div>
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'task-update' repoId=object.project.repository.id pk=object.project.id  tk=object.id %}">Update</a>
+      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'task-delete' tk=object.id repoId=object.project.repository.id pk=object.project.id %}">Delete</a>
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'task-history' tk=object.id repoId=object.project.repository.id pk=object.project.id %}">Task History</a>
+    </div>
+  </article>
+{% endblock content %}

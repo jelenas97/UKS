@@ -1,0 +1,115 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+
+<h2>Task table</h2>
+<br>
+  <article class="media content-section">
+    <div class="media-body">
+      <h3 class="article-title">{{ project.name }}</h3>
+      <p class="article-content">{{ project.description }}</p>
+    </div>
+  </article>
+
+  <div class="row mt-1" style="border:3px solid #ffffff; padding: 10px; background-color: rgb(230, 210, 210);">
+    <div class="col-md-3">
+      <div class="row">
+        <h4>TO DO</h4>
+      </div>
+      {% for task in tasks %}
+      {% if task.status == 'TO_DO' %}
+      <div class="row mt-1" style="border: 3px solid #ffffff; margin-right: 5px; padding: 15px; ">
+          <div class="col-md-10">
+            {% for label in task.labels.all %}
+            <span  style="background-color: {{ label.color }}">{{label.name}}</span>
+             {% endfor %}
+             <br>
+              <span class="font-weight-bold">
+                <a class="article-title" href="{% url 'task-detail' project.id task.id%}"> {{ task.title }}</a>
+              </span>
+              <br />
+              {% for a in task.assignees.all %}
+                  <li>{{ a.user.username }}</li>
+              {% endfor %}
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <h4>IN PROGRESS</h4>
+      </div>
+      {% for task in tasks %}
+      {% if task.status == 'IN_PROGRESS' %}
+      <div class="row mt-1" style="border: 3px solid #ffffff; margin-right: 5px; padding: 15px;">
+          <div class="col-md-10">
+              {% for label in task.labels.all %}
+                  <span style="background-color: {{ label.color }}">{{ label.name }}</span>
+              {% endfor %}
+              <br>
+              <span class="font-weight-bold">
+                <a class="article-title" href="{% url 'task-detail' project.id task.id%}"> {{ task.title }}</a>
+              </span>
+              <br />
+              {% for a in task.assignees.all %}
+              <li>{{ a.user.username }}</li>
+              {% endfor %}
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <h4>IN REVIEW</h4>
+      </div>
+      {% for task in tasks %}
+      {% if task.status == 'IN_REVIEW' %}
+      <div class="row mt-1" style="border: 3px solid #ffffff; margin-right: 5px; padding: 15px;">
+          <div class="col-md-10">
+              {% for label in task.labels.all %}
+                  <span style="background-color: {{ label.color }}">{{ label.name }}</span>
+              {% endfor %}
+              <br>
+              <span class="font-weight-bold">
+                <a class="article-title" href="{% url 'task-detail' repoId=repo.id pk=project.id tk=task.id%}"> {{ task.title }}</a>
+              </span>
+              <br />
+              {% for a in task.assignees.all %}
+                  <span >{{ a.user.username }}</span>
+              {% endfor %}
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <h4>DONE</h4>
+      </div>
+      {% for task in tasks %}
+      {% if task.status == 'DONE' %}
+      <div class="row mt-1" style="border: 3px solid #ffffff; margin-right: 5px; padding: 20px;">
+          <div class="col-md-10">
+              {% for label in task.labels.all %}
+                  <span style="background-color: {{ label.color }}">{{ label.name }}</span>
+              {% endfor %}
+              <br>
+              <span class="font-weight-bold">
+                <a class="article-title" href="{% url 'task-detail' project.id task.id%}"> {{ task.title }}</a>
+              </span>
+              <br />
+              {% for a in task.assignees.all %}
+                  <p>{{ a.user.username }}</p>
+              {% endfor %}
+              <br />
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+{% endblock content %}
