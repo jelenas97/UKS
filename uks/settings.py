@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "testing_environment")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
 # Application definition
 
