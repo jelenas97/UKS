@@ -1,0 +1,13 @@
+{% extends "version_control/base.html" %}
+{% block content %}
+    {% for revision in revisions %}
+        <article class="media content-section">
+          <div class="media-body">
+            <p class="article-content"><b>Task title:</b>{{revision.task.title}}</p>
+            <p class="article-content"><b>Task status:</b>{{revision.task.status}}</p>
+            <p class="article-content"><b>Task reviser:</b> {{ revision.reviser }} </p>
+            <p class="article-content"><b>Updated on:</b> {{ revision.updatedOn }} </p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
