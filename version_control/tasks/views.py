@@ -124,3 +124,10 @@ class TaskListView(ListView):
 
     def get_queryset(self):
         return  Task.objects.filter(project_id = self.kwargs['pk'])
+
+class TaskRevisionListView(ListView):
+    template_name = 'tasks/taskhistory.html'
+    context_object_name = 'revisions'
+
+    def get_queryset(self):
+        return  TaskRevision.objects.filter(task_id = self.kwargs['tk'])

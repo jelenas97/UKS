@@ -4,8 +4,12 @@
         <article class="media content-section">
           <div class="media-body">
             <h2><a class="article-title" href="{% url 'task-detail' tk=task.id pk=task.project.id repoId=task.project.repository.id %}">{{ task.title }}</a></h2>
-            <p class="article-content">{{ task.description }}</p>
-
+            <p class="article-content"><b>Task status:</b>{{ task.status }}</p>
+            <div class=" display: table; margin-left:5px; ">
+              {% for label in task.labels.all %}
+                <span style="background-color:{{label.color}} ;">{{ label.name }}</span>
+              {% endfor %}
+            </div>
           </div>
         </article>
     {% endfor %}
