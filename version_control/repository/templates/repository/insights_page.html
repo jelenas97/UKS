@@ -1,0 +1,46 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content%}
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+   function drawChart() {
+        var djangoData = JSON.parse('{{ array | safe }}');
+
+        var data = google.visualization.arrayToDataTable(djangoData);
+
+        var options = {
+          title: 'Number of commits'
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('contributors_commits'));
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var djangoData = JSON.parse('{{ array2 | safe }}');
+
+        var data = google.visualization.arrayToDataTable(djangoData);
+
+        var options = {
+          title: 'Number of open and closed tasks'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('tasks_open_closed'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="contributors_commits" style="width: 800px; height: 500px;"></div>
+    <div id="tasks_open_closed" style="width: 800px; height: 500px;"></div>
+
+  </body>
+
+{% endblock content %}
