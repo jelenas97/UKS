@@ -1,0 +1,41 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+    <div class="col-lg-2 offset-lg-10 text-right mr-0 pr-0 mb-3">
+        <button class="btn btn-dark">
+            <a class="text-white" href="{% url 'wiki-update' repoId=wiki.repository.id pk=wiki.id %}">
+                Edit
+            </a>
+        </button>
+        <button class="btn btn-success">
+            <a class="text-white" href="{% url 'wiki-create' repoId=request.resolver_match.kwargs.repoId %}">
+                New page
+            </a>
+        </button>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 jumbotron">
+            <h4>{{ object.title }}</h4>
+            <a href="{% url 'wiki-revisions-preview' repoId=wiki.repository.id pk=wiki.id %}"><p>Number of
+                revisions: {{ wikiRevisions | length }}</p></a>
+            <hr>
+            <h5>{{ object.content }}</h5>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="content-section">
+                <h3>Pages</h3>
+                <ul class="list-group">
+                    {% for wiki in wikis %}
+                        <li class="list-group-item list-group-item-light h-50">
+                            <p class="pt-3"><a
+                                    href="{% url 'wiki-page-preview' repoId=wiki.repository.id pk=wiki.id %}">{{ wiki.title }}</a>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
