@@ -1,0 +1,18 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+
+    <div>
+        <a class="btn btn-success btn-sm mt-1 mb-1"
+           href="{% url 'branch-create' repoId=request.resolver_match.kwargs.repoId %}">New</a>
+    </div>
+    {% for branch in branches %}
+        <article class="media content-section">
+            <div class="media-body">
+                <h4 class="article-content">Name: </h4>
+                <p><a class="article-content"
+                      href="{% url 'branch-detail' repoId=branch.repository.id pk=branch.id %}">{{ branch.name }}</a>
+                </p>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

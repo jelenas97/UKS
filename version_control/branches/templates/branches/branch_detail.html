@@ -1,0 +1,18 @@
+{% extends "repository/repositoryhome.html" %}
+{% block content %}
+    <article class="media content-section">
+
+        <div class="media-body">
+            <h4 class="article-content">Name: </h4>
+            <p class="article-title">{{ object.name }}</p>
+            <a class="btn btn-success" href="{% url 'commit-create' repoId=object.repository.id branchId=object.id %}">Create commit</a>
+            <a class="btn btn-success" href="{% url 'commit-view' repoId=object.repository.id branchId=object.id %}">View commits</a>
+        </div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1"
+               href="{% url 'branch-update' repoId=object.repository.id pk=object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1"
+               href="{% url 'branch-delete' repoId=object.repository.id pk=object.id %}">Delete</a>
+        </div>
+    </article>
+{% endblock content %}
