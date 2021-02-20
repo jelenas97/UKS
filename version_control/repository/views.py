@@ -14,7 +14,7 @@ from django.views.generic import (
 from ghapi.core import GhApi
 
 from users.models import Profile
-from version_control.models import Commit
+from version_control.commits.models import Commit
 from version_control.repository.forms import FormContributors
 from version_control.repository.models import Repository
 from version_control.tasks.models import Task
