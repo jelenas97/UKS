@@ -24,6 +24,7 @@ urlpatterns = [
     path('repository/<int:repoId>/realGithub/branch/<path:branch>/commits/', views.get_commits_from_branch, name='real-branch-commits'),
 
     path('repository/<int:repoId>/', include('version_control.labels.urls')),
+    path('repository/<int:repoId>/', include('version_control.wiki.urls')),
 
     path('repository/<int:repoId>/', include('version_control.milestones.urls')),
     path('repository/<int:repoId>/', include('version_control.projects.urls')),
