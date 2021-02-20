@@ -6,6 +6,7 @@
     {% for repository in repository %}
         <article class="media content-section">
           <div class="media-body">
+            <h3 class="article-content">Repository #{{ forloop.counter }}</h3>
             <h4 class="article-content">Name: </h4><p><a class="article-content" href="{% url 'repository-homepage' repository.id %}">{{ repository.name }}</a></p>
             <h4 class="article-content">Description: </h4><p class="article-content">{{ repository.description }}</p>
              <div>

@@ -7,6 +7,9 @@ agent:
 blocks:
   - name: Tests
     task:
+      env_vars:
+        - name: try_this
+          value: "postgresql:test:test@localhost:5432/test_db"
       prologue:
         commands:
           - sem-version node 12
@@ -18,10 +21,13 @@ blocks:
           commands:
             - checkout
             - cp ~/configs/.env ~/UKS/.env
+            - ls -a
             - cache restore
+            - sem-service start postgres --username=test --password=test --db=test_db
             - pip install pipenv
-            - pipenv install
+            - pipenv install --dev
             - cache store
+            - python manage.py collectstatic
             - pipenv run pytest
 
 promotions:

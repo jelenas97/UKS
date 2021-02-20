@@ -9,6 +9,7 @@ ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV PORT=8000
+ENV DJANGO_SUPERUSER_PASSWORD=admin123
 
 RUN apk update
 
@@ -21,7 +22,7 @@ RUN pip3 install pipenv
 COPY ./Pipfile .
 COPY ./Pipfile.lock .
 
-RUN pipenv install --skip-lock --system --dev
+RUN pipenv install
 RUN apk del build-deps
 RUN apk --no-cache add musl-dev linux-headers g++
 

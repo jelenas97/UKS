@@ -1,17 +1,12 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [requires]
-
 python_version = "3.8"
 
-
 [packages]
-
 psycopg2-binary = "*"
 django = "*"
 django-heroku = "*"
@@ -20,8 +15,9 @@ dj-database-url = "*"
 django-crispy-forms = "*"
 django-colorfield = "*"
 Pillow = "*"
-
+ghapi = "*"
 
 [dev-packages]
-
 pytest = "*"
+pytest-django = "*"
+pytest-mock = "*"

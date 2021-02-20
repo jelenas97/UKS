@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from .models import Project
-from version_control.models import Organization
+from version_control.organizations.models import Organization
 from  version_control.repository.models import Repository
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
-from .forms import ProjectCreationForm
+from .forms import ProjectCreationForm, ProjectUpdateForm
 from django.views.generic import (
     ListView,
     DetailView,
@@ -24,13 +24,6 @@ class ProjectListView(ListView):
 
 class ProjectDetailView(DetailView):
     model = Project
-
-class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Project
-    fields = ['name', 'description', 'organization']
-
-    def test_func(self):
-        return True
 
 class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
@@ -65,3 +58,30 @@ def project_create_view(request, repoId):
     }
 
     return render(request, "projects/project_creation_form.html", context)
+
+def project_update_view(request, repoId, pk):
+    active_user = request.user.id
+
+    if request.method =='POST':
+
+        form= ProjectUpdateForm(active_user, pk,request.POST)
+
+        repo = Repository.objects.get(id=repoId)
+        if form.is_valid():
+            #form.save()
+            project = Project.objects.get(id=pk)
+            project.name = form.cleaned_data['name']
+            project.description = form.cleaned_data['description']
+            project.organization = form.cleaned_data['organization']
+            project.repository = repo
+            project.save()
+            form= ProjectUpdateForm(user_id = active_user, pk=pk)
+    else:
+        form= ProjectUpdateForm(user_id = active_user, pk=pk)
+
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, "projects/project_update_form.html", context)
